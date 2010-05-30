@@ -294,11 +294,3 @@ void svndump_reset(void)
 	reset_rev_ctx(0);
 	reset_node_ctx(NULL);
 }
-
-int main(int argc, char **argv)
-{
-	svndump_init();
-	svndump_read((argc > 1) ? pool_intern(argv[1]) : ~0);
-	svndump_reset();
-	return 0;
-}
