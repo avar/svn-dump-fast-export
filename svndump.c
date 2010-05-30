@@ -201,7 +201,7 @@ static void handle_revision(void)
 			dump_ctx.uuid, dump_ctx.url, rev_ctx.timestamp);
 }
 
-static void svndump_read(uint32_t url)
+void svndump_read(uint32_t url)
 {
 	char *val;
 	char *t;
@@ -285,7 +285,7 @@ static void svndump_init(void)
 	init_keys();
 }
 
-static void svndump_reset(void)
+void svndump_reset(void)
 {
 	log_reset();
 	buffer_reset();
