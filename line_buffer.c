@@ -3,9 +3,7 @@
  * See LICENSE for details.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "git-compat-util.h"
 
 #include "line_buffer.h"
 #include "obj_pool.h"

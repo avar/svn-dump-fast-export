@@ -3,8 +3,7 @@
  * See LICENSE for details.
  */
 
-#include <string.h>
-#include <stdint.h>
+#include "git-compat-util.h"
 
 #include "trp.h"
 #include "obj_pool.h"

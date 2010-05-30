@@ -1,8 +1,7 @@
 #ifndef REPO_TREE_H_
 #define REPO_TREE_H_
 
-#include <stdint.h>
-#include <time.h>
+#include "git-compat-util.h"
 
 #define REPO_MODE_DIR 0040000
 #define REPO_MODE_BLB 0100644

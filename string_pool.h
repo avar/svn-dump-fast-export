@@ -1,8 +1,7 @@
 #ifndef STRING_POOL_H_
 #define	STRING_POOL_H_
 
-#include <stdint.h>
-#include <stdio.h>
+#include "git-compat-util.h"
 
 uint32_t pool_intern(char *key);
 char *pool_fetch(uint32_t entry);

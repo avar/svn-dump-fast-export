@@ -7,11 +7,7 @@
  * See LICENSE for details.
  */
 
-#define _GNU_SOURCE
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include "git-compat-util.h"
 
 #include "mkgmtime.h"
 
