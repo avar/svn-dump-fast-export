@@ -283,7 +283,7 @@ void repo_diff(uint32_t r1, uint32_t r2)
 }
 
 void repo_commit(uint32_t revision, uint32_t author, char *log, uint32_t uuid,
-                 uint32_t url, time_t timestamp)
+                 uint32_t url, unsigned long timestamp)
 {
 	fast_export_commit(revision, author, log, uuid, url, timestamp);
 	pool_commit();

@@ -7,9 +7,8 @@
  * See LICENSE for details.
  */
 
+#include "cache.h"
 #include "git-compat-util.h"
-
-#include "mkgmtime.h"
 
 #include "repo_tree.h"
 #include "fast_export.h"
@@ -28,6 +27,7 @@
 #define NODE_CTX 2
 
 #define LENGTH_UNKNOWN (~0)
+#define DATE_RFC2822_LEN 31
 
 /* Create memory pool for log messages */
 obj_pool_gen(log, char, 4096);
@@ -48,7 +48,7 @@ static struct {
 
 static struct {
 	uint32_t revision, author;
-	time_t timestamp;
+	unsigned long timestamp;
 	char *log;
 } rev_ctx;
 
@@ -79,7 +79,7 @@ static void reset_node_ctx(char *fname)
 static void reset_rev_ctx(uint32_t revision)
 {
 	rev_ctx.revision = revision;
-	rev_ctx.timestamp = 0;
+	rev_ctx.timestamp = "";
 	rev_ctx.log = NULL;
 	rev_ctx.author = ~0;
 }
@@ -111,9 +111,9 @@ static void init_keys(void)
 
 static void read_props(void)
 {
-	struct tm tm;
 	uint32_t len;
 	uint32_t key = ~0;
+	char buffer[27];
 	char *val = NULL;
 	char *t;
 	while ((t = buffer_read_line()) && strcmp(t, "PROPS-END")) {
@@ -130,8 +130,10 @@ static void read_props(void)
 			} else if (key == keys.svn_author) {
 				rev_ctx.author = pool_intern(val);
 			} else if (key == keys.svn_date) {
-				strptime(val, "%FT%T", &tm);
-				rev_ctx.timestamp = mkgmtime(&tm);
+				if (parse_date(val, buffer, sizeof(buffer)) > 0)
+					rev_ctx.timestamp = strtoul(buffer, NULL, 0);
+				else
+					fprintf(stderr, "Invalid timestamp: %s", val);
 			} else if (key == keys.svn_executable) {
 				node_ctx.type = REPO_MODE_EXE;
 			} else if (key == keys.svn_special) {
