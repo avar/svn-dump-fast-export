@@ -103,7 +103,6 @@ svn_error_t *replay_range(svn_revnum_t start_revision, svn_revnum_t end_revision
 {
 	svn_revnum_t latest_revision;
 	svn_delta_editor_t *editor;
-	svn_error_t *err;
 	SVN_ERR(svn_ra_get_latest_revnum(session, &latest_revision, pool));
 	printf("%ld\n", latest_revision);
 	SVN_ERR(setup_delta_editor(&editor));
